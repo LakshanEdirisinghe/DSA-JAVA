@@ -48,7 +48,7 @@ class StackArray {
         return topPoint <= 0;
     }
 
-    void displayArrayAdvance() {
+    void displayStack() {
 
         System.out.print("[");
 
