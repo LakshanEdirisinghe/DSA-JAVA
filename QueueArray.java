@@ -3,43 +3,28 @@ class QueueArray {
     private int arr[];
     private int frontPoint;
     private int rearPoint;
-    private int size;
-    private double loadFactor;
-    private int initiateSizeOfArr;
+    private int maxSize;
 
     QueueArray(int pSize) {
-        this.initiateSizeOfArr = pSize;
-        this.arr = new int[initiateSizeOfArr];
-        this.loadFactor = pSize;
-        this.frontPoint = 0;
-        this.rearPoint = 0;
-        this.size = 0;
+
+        maxSize = pSize;
+        arr = new int[maxSize];
+
+        frontPoint = -1;
+        rearPoint = -1;
 
     }
 
     void Insert(int value) {
-        if (this.size >= this.arr.length) {
-            int growth = (int) (this.initiateSizeOfArr * this.loadFactor);
-
-            if (growth <= 0) {
-                growth = 1;
-            }
-
-            int newCapacity = this.arr.length + growth;
-            int[] tempArray = new int[newCapacity];
-
-            for (int i = 0; i < this.size; i++) {
-                tempArray[i] = this.arr[(this.frontPoint + i) % this.arr.length];
-            }
-
-            this.arr = tempArray;
-            this.frontPoint = 0;
-            this.rearPoint = this.size;
+        if (isFull()) {
+            System.out.println("Queue is full");
+            return;
         }
 
-        this.arr[this.rearPoint] = value;
-        this.rearPoint = (this.rearPoint + 1) % this.arr.length;
-        this.size++;
+        if (isEmpty()) {
+            frontPoint = 0;
+        }
+        arr[++rearPoint] = value;
 
     }
 
@@ -48,16 +33,16 @@ class QueueArray {
         if (isEmpty()) {
             System.out.println("Queue is already empty");
             return;
+
         }
 
-        this.arr[this.frontPoint] = 0;
-        this.frontPoint = (this.frontPoint + 1) % this.arr.length;
-        this.size--;
+        frontPoint++;
 
-        if (this.size == 0) {
-            this.frontPoint = 0;
-            this.rearPoint = 0;
+        if (frontPoint > rearPoint) {
+            frontPoint = -1;
+            rearPoint = -1;
         }
+
     }
 
     void Peek() {
@@ -66,7 +51,7 @@ class QueueArray {
             return;
         }
 
-        System.out.println("Front data: " + this.arr[this.frontPoint]);
+        System.out.println("Front data: " + arr[frontPoint]);
     }
 
     void Display() {
@@ -77,19 +62,22 @@ class QueueArray {
 
         System.out.print("[");
 
-        for (int i = 0; i < this.size; i++) {
-            System.out.print(this.arr[(this.frontPoint + i) % this.arr.length]);
+        for (int i = frontPoint; i <= rearPoint; i++) {
+            System.out.print(arr[i]);
 
-            if (i < this.size - 1) {
-                System.out.print(",");
+            if (i < rearPoint) {
+                System.out.print(", ");
             }
         }
-
         System.out.println("]");
     }
 
     boolean isEmpty() {
-        return this.size <= 0;
+        return (frontPoint > rearPoint || frontPoint == -1);
+    }
+
+    boolean isFull() {
+        return (rearPoint == maxSize - 1);
     }
 
 }
