@@ -5,7 +5,7 @@ class StackArray {
 
     private int arr[];
     private int topPoint;
-    private double loadFactor;
+    private int loadFactor;
     private int initiateSizeOfArr;
 
     StackArray(int pSize) {
@@ -20,7 +20,7 @@ class StackArray {
 
         if (topPoint >= arr.length) {
 
-            int[] tempArray = new int[(int) (arr.length + loadFactor)];
+            int[] tempArray = new int[arr.length + loadFactor];
 
             for (int i = 0; i < arr.length; i++) {
                 tempArray[i] = arr[i];
@@ -39,16 +39,14 @@ class StackArray {
             return;
         }
 
-        if (topPoint - 1 <= (arr.length - ((int) (initiateSizeOfArr *
-                loadFactor)))) {
+        if (topPoint - 1 <= (arr.length - loadFactor)) {
 
-            int[] tempArray = new int[arr.length - ((int) (initiateSizeOfArr *
-                    loadFactor))];
+            int[] tempArray = new int[arr.length - loadFactor];
 
             for (int i = 0; i < tempArray.length; i++) {
                 tempArray[i] = arr[i];
             }
-
+            
             arr = tempArray;
 
         }
