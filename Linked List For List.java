@@ -1,9 +1,9 @@
-class ListArray {
+class LinkController {
 
     private int top;
     private DataObjet head;
 
-    ListArray() {
+    LinkController() {
         top = 0;
         head = null;
     }
@@ -28,6 +28,7 @@ class ListArray {
         top++;
 
     }
+
     void addFirst(int value) {
 
         DataObjet tempObj = new DataObjet(value);
@@ -62,9 +63,8 @@ class ListArray {
         DataObjet current = head;
         int turn = 0;
 
-        while (turn < index - 2) {
+        while (turn < index - 1) {
             current = current.next;
-
             turn++;
         }
 
@@ -86,6 +86,7 @@ class ListArray {
         top--;
 
     }
+
     int get(int index) {
 
         if (index < 0 || index >= top) {
@@ -119,16 +120,13 @@ class ListArray {
         DataObjet current = head;
         int turn = 0;
 
-        while (turn < index - 2) {
+        while (turn < index - 1) {
             current = current.next;
 
             turn++;
         }
-        
-        current.next=current.next.next;
-        
-        // current.next;
-        // System.out.println(current.data);
+
+        current.next = current.next.next;
 
         top--;
 
@@ -193,10 +191,6 @@ class ListArray {
         System.out.println("List cleared");
     }
     // 5->10->15->20->25->30->null;
-
-    void temp() {
-
-    }
 
 }
 
