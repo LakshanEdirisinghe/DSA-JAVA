@@ -8,28 +8,27 @@ class StackArray {
     private double loadFactor;
     private int initiateSizeOfArr;
 
-    StackArray(int pSize, double pLoadFactor) {
-        this.initiateSizeOfArr = pSize;
-        this.arr = new int[initiateSizeOfArr];
-        this.loadFactor = pLoadFactor;
-        this.topPoint = 0;
+    StackArray(int pSize) {
+        initiateSizeOfArr = pSize;
+        arr = new int[initiateSizeOfArr];
+        loadFactor = pSize;
+        topPoint = 0;
 
     }
 
     void push(int value) {
 
-        if (this.topPoint >= this.arr.length) {
+        if (topPoint >= arr.length) {
 
-            int[] tempArray = new int[(int) (this.arr.length + (this.initiateSizeOfArr *
-                    this.loadFactor))];
+            int[] tempArray = new int[(int) (arr.length + loadFactor)];
 
-            for (int i = 0; i < this.arr.length; i++) {
+            for (int i = 0; i < arr.length; i++) {
                 tempArray[i] = arr[i];
             }
-            this.arr = tempArray;
+            arr = tempArray;
 
         }
-        this.arr[topPoint++] = value;
+        arr[topPoint++] = value;
 
     }
 
@@ -40,11 +39,11 @@ class StackArray {
             return;
         }
 
-        if (this.topPoint - 1 <= (arr.length - ((int) (this.initiateSizeOfArr *
-                this.loadFactor)))) {
+        if (topPoint - 1 <= (arr.length - ((int) (initiateSizeOfArr *
+                loadFactor)))) {
 
-            int[] tempArray = new int[arr.length - ((int) (this.initiateSizeOfArr *
-                    this.loadFactor))];
+            int[] tempArray = new int[arr.length - ((int) (initiateSizeOfArr *
+                    loadFactor))];
 
             for (int i = 0; i < tempArray.length; i++) {
                 tempArray[i] = arr[i];
@@ -54,7 +53,7 @@ class StackArray {
 
         }
 
-        this.topPoint--;
+        topPoint--;
 
     }
 
@@ -65,8 +64,8 @@ class StackArray {
     void displayArray() {
 
         // here is displayed real Array
-        final int arrg[] = this.arr;
-        final int sizeOfArry = this.arr.length;
+        final int arrg[] = arr;
+        final int sizeOfArry = arr.length;
 
         System.out.print("[");
         for (int i = 0; i < sizeOfArry; i++) {
@@ -79,7 +78,7 @@ class StackArray {
 
         System.out.print("[");
 
-        for (int i = this.topPoint; i > 0; i--) {
+        for (int i = topPoint; i > 0; i--) {
             System.out.print(arr[i - 1] + ",");
         }
 
@@ -115,22 +114,22 @@ class StackArray {
     }
 
     void peek() {
-        System.out.println("Top data: " + arr[this.topPoint - 1]);
+        System.out.println("Top data: " + arr[topPoint - 1]);
     }
 
     void sizeOf() {
-        System.out.println("Stck Size: " + this.topPoint);
+        System.out.println("Stck Size: " + topPoint);
     }
 
     void poll() {
-        this.peek();
-        this.pop();
+        peek();
+        pop();
     }
 
     void clear() {
 
-        this.arr = new int[initiateSizeOfArr];
-        this.topPoint = 0;
+        arr = new int[initiateSizeOfArr];
+        topPoint = 0;
 
     }
 
