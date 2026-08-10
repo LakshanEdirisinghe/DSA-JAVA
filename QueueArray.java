@@ -7,10 +7,10 @@ class QueueArray {
     private double loadFactor;
     private int initiateSizeOfArr;
 
-    QueueArray(int pSize, double pLoadFactor) {
+    QueueArray(int pSize) {
         this.initiateSizeOfArr = pSize;
         this.arr = new int[initiateSizeOfArr];
-        this.loadFactor = pLoadFactor;
+        this.loadFactor = pSize;
         this.frontPoint = 0;
         this.rearPoint = 0;
         this.size = 0;

@@ -5,26 +5,22 @@ class StackArray {
 
     private int arr[];
     private int topPoint;
-    private int loadFactor;
-    private int initiateSizeOfArr;
+    private int maxSize;
 
     StackArray(int pSize) {
-        initiateSizeOfArr = pSize;
-        arr = new int[initiateSizeOfArr];
-        loadFactor = pSize;
-        topPoint = 0;
+        maxSize = pSize;
+        arr = new int[maxSize];
+        topPoint = -1;
 
     }
 
     void push(int value) {
-        if (topPoint >= arr.length) {
-            int[] tempArray = new int[arr.length + loadFactor];
-            for (int i = 0; i < arr.length; i++) {
-                tempArray[i] = arr[i];
-            }
-            arr = tempArray;
+        if (isFull()) {
+            System.out.println("Stack is full");
+        } else {
+            arr[++topPoint] = value;
         }
-        arr[topPoint++] = value;
+
     }
 
     void pop() {
@@ -32,46 +28,45 @@ class StackArray {
             System.out.println("Stack is already empty");
             return;
         }
-
         topPoint--;
 
-        if (topPoint <= (arr.length - loadFactor) && arr.length > initiateSizeOfArr) {
-            int[] tempArray = new int[arr.length - loadFactor];
-            for (int i = 0; i < topPoint; i++) {
-                tempArray[i] = arr[i];
-            }
-            arr = tempArray;
-        }
     }
 
     boolean isEmpty() {
-        return topPoint <= 0;
+        return (topPoint == -1);
+    }
+
+    boolean isFull() {
+        return (topPoint == maxSize - 1);
     }
 
     void displayStack() {
 
-        System.out.print("[");
-
-        for (int i = topPoint; i > 0; i--) {
-            System.out.print(arr[i - 1] + ",");
+        if (isEmpty()) {
+            System.out.println("Stack is Empty");
+            return;
         }
 
-        System.out.println(isEmpty() ? "Stack is Empty]" : "\b]");
+        System.out.print("[");
+
+        for (int i = topPoint; i >= 0; i--) {
+            System.out.print(arr[i]);
+
+            if (i > 0) {
+                System.out.print(",");
+            }
+        }
+
+        System.out.println("]");
 
     }
 
     void findIndex(int value) {
 
-        if (!contains(value)) {
-            System.out.println("This value does not exist");
-            return;
-
-        }
-
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = topPoint; i >= 0; i--) {
 
             if (arr[i] == value) {
-                System.out.println("Index of " + value + ": " + (arr.length - 1 - i));
+                System.out.println("Index of " + value + ": " + (topPoint - i));
                 return;
             }
 
@@ -81,7 +76,7 @@ class StackArray {
     }
 
     boolean contains(int value) {
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i <= topPoint; i++) {
 
             if (arr[i] == value) {
                 return true;
@@ -97,11 +92,11 @@ class StackArray {
             return;
         }
 
-        System.out.println("Top data: " + arr[topPoint - 1]);
+        System.out.println("Top data: " + arr[topPoint]);
     }
 
     void sizeOf() {
-        System.out.println("Stck Size: " + topPoint);
+        System.out.println("Stack Size: " + (topPoint + 1));
     }
 
     void poll() {
@@ -111,8 +106,8 @@ class StackArray {
 
     void clear() {
 
-        arr = new int[initiateSizeOfArr];
-        topPoint = 0;
+        arr = new int[maxSize];
+        topPoint = -1;
 
     }
 
