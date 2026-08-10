@@ -48,18 +48,6 @@ class StackArray {
         return topPoint <= 0;
     }
 
-    void displayArray() {
-
-        final int arrg[] = arr;
-        final int sizeOfArry = arr.length;
-
-        System.out.print("[");
-        for (int i = 0; i < sizeOfArry; i++) {
-            System.out.print(arrg[i] + ",");
-        }
-        System.out.println("\b]");
-    }
-
     void displayArrayAdvance() {
 
         System.out.print("[");
