@@ -39,6 +39,8 @@ class StackArray {
             return;
         }
 
+        topPoint--;
+
         if (topPoint - 1 <= (arr.length - loadFactor)) {
 
             int[] tempArray = new int[arr.length - loadFactor];
@@ -46,12 +48,10 @@ class StackArray {
             for (int i = 0; i < tempArray.length; i++) {
                 tempArray[i] = arr[i];
             }
-            
+
             arr = tempArray;
 
         }
-
-        topPoint--;
 
     }
 
@@ -112,6 +112,11 @@ class StackArray {
     }
 
     void peek() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty");
+            return;
+        }
+        
         System.out.println("Top data: " + arr[topPoint - 1]);
     }
 
