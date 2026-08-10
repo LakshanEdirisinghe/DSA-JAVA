@@ -17,23 +17,17 @@ class StackArray {
     }
 
     void push(int value) {
-
         if (topPoint >= arr.length) {
-
             int[] tempArray = new int[arr.length + loadFactor];
-
             for (int i = 0; i < arr.length; i++) {
                 tempArray[i] = arr[i];
             }
             arr = tempArray;
-
         }
         arr[topPoint++] = value;
-
     }
 
     void pop() {
-
         if (isEmpty()) {
             System.out.println("Stack is already empty");
             return;
@@ -41,18 +35,13 @@ class StackArray {
 
         topPoint--;
 
-        if (topPoint - 1 <= (arr.length - loadFactor)) {
-
+        if (topPoint <= (arr.length - loadFactor) && arr.length > initiateSizeOfArr) {
             int[] tempArray = new int[arr.length - loadFactor];
-
-            for (int i = 0; i < tempArray.length; i++) {
+            for (int i = 0; i < topPoint; i++) {
                 tempArray[i] = arr[i];
             }
-
             arr = tempArray;
-
         }
-
     }
 
     boolean isEmpty() {
@@ -61,7 +50,6 @@ class StackArray {
 
     void displayArray() {
 
-        // here is displayed real Array
         final int arrg[] = arr;
         final int sizeOfArry = arr.length;
 
@@ -92,7 +80,6 @@ class StackArray {
                 System.out.println("Index of " + value + ": " + (arr.length - 1 - i));
                 return;
             }
-            // System.out.println(arr.length-1-i);
 
         }
 
@@ -116,7 +103,7 @@ class StackArray {
             System.out.println("Stack is empty");
             return;
         }
-        
+
         System.out.println("Top data: " + arr[topPoint - 1]);
     }
 
