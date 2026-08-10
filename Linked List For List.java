@@ -1,21 +1,21 @@
 class ListArray {
 
     private int top;
-    private LinkedList head;
+    private DataObjet head;
 
     ListArray() {
-        this.top = 0;
-        this.head = null;
+        top = 0;
+        head = null;
     }
 
     void addLast(int value) {
 
         if (top == 0) {
-            this.head = new LinkedList(value);
+            head = new DataObjet(value);
         } else {
-            LinkedList tempObj = new LinkedList(value);
+            DataObjet tempObj = new DataObjet(value);
 
-            LinkedList current = head;
+            DataObjet current = head;
 
             while (current.next != null) {
                 current = current.next;
@@ -25,21 +25,21 @@ class ListArray {
 
         }
 
-        this.top++;
+        top++;
 
     }
     void addFirst(int value) {
 
-        LinkedList tempObj = new LinkedList(value);
+        DataObjet tempObj = new DataObjet(value);
 
         if (isEmpty()) {
-            this.head = tempObj;
+            head = tempObj;
         } else {
-            tempObj.next = this.head;
-            this.head = tempObj;
+            tempObj.next = head;
+            head = tempObj;
         }
 
-        this.top++;
+        top++;
 
     }
 
@@ -57,9 +57,9 @@ class ListArray {
             return;
         }
 
-        LinkedList temp = new LinkedList(value);
+        DataObjet temp = new DataObjet(value);
 
-        LinkedList current = this.head;
+        DataObjet current = head;
         int turn = 0;
 
         while (turn < index - 2) {
@@ -71,7 +71,7 @@ class ListArray {
         temp.next = current.next;
         current.next = temp;
 
-        this.top++;
+        top++;
     }
 
     void removeFirst() {
@@ -83,7 +83,7 @@ class ListArray {
 
         head = head.next;
 
-        this.top--;
+        top--;
 
     }
     int get(int index) {
@@ -92,7 +92,7 @@ class ListArray {
             System.out.println("Invalid index");
             return -1;
         }
-        LinkedList current = this.head;
+        DataObjet current = head;
         int turn = 0;
 
         while (turn < index) {
@@ -116,7 +116,7 @@ class ListArray {
             return;
         }
 
-        LinkedList current = this.head;
+        DataObjet current = head;
         int turn = 0;
 
         while (turn < index - 2) {
@@ -130,16 +130,16 @@ class ListArray {
         // current.next;
         // System.out.println(current.data);
 
-        this.top--;
+        top--;
 
     }
 
     int sizeOfArray() {
-        return this.top;
+        return top;
     }
 
     boolean isEmpty() {
-        return this.top <= 0;
+        return top <= 0;
     }
 
     void printList() {
@@ -151,7 +151,7 @@ class ListArray {
 
         System.out.print("[");
 
-        LinkedList currentObj = head;
+        DataObjet currentObj = head;
 
         while (currentObj != null) {
             System.out.print(currentObj.data + ", ");
@@ -164,7 +164,7 @@ class ListArray {
 
     int indexOf(int value) {
 
-        LinkedList currentObj = head;
+        DataObjet currentObj = head;
         int index = 0;
 
         while (currentObj != null) {
@@ -188,8 +188,8 @@ class ListArray {
     }
 
     void clear() {
-        this.head = null;
-        this.top = 0;
+        head = null;
+        top = 0;
         System.out.println("List cleared");
     }
     // 5->10->15->20->25->30->null;
@@ -200,13 +200,13 @@ class ListArray {
 
 }
 
-class LinkedList {
+class DataObjet {
 
     int data;
-    LinkedList next;
+    DataObjet next;
 
-    LinkedList(int data) {
+    DataObjet(int data) {
         this.data = data;
-        this.next = null;
+        next = null;
     }
 }
