@@ -4,6 +4,7 @@ class QueueArray {
     private int frontPoint;
     private int rearPoint;
     private int maxSize;
+    private int nItems;
 
     QueueArray(int pSize) {
 
@@ -12,6 +13,7 @@ class QueueArray {
 
         frontPoint = -1;
         rearPoint = -1;
+        nItems = 0;
 
     }
 
@@ -24,7 +26,9 @@ class QueueArray {
         if (isEmpty()) {
             frontPoint = 0;
         }
+
         arr[++rearPoint] = value;
+        nItems++;
 
     }
 
@@ -37,11 +41,7 @@ class QueueArray {
         }
 
         frontPoint++;
-
-        if (frontPoint > rearPoint) {
-            frontPoint = -1;
-            rearPoint = -1;
-        }
+        nItems--;
 
     }
 
@@ -73,11 +73,11 @@ class QueueArray {
     }
 
     boolean isEmpty() {
-        return (frontPoint > rearPoint || frontPoint == -1);
+        return (nItems == 0);
     }
 
     boolean isFull() {
-        return (rearPoint == maxSize - 1);
+        return (nItems == maxSize);
     }
 
 }
