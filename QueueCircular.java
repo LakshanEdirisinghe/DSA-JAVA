@@ -16,27 +16,52 @@ public class QueueCircular {
 
     void Insert(int value) {
 
-        if (rearPoint == maxSize - 1) {
-            rearPoint = -1;
-
+        if (isFull()) {
+            System.out.println("Queue is full");
+            return;
         }
-        arr[++rearPoint] = value;
-        nItems++;
 
+        // First element
+        if (isEmpty()) {
+            frontPoint = 0;
+            rearPoint = 0;
+        } else {
+
+            // Move rear circularly
+            if (rearPoint == maxSize - 1) {
+                rearPoint = 0;
+            } else {
+                rearPoint++;
+            }
+        }
+
+        arr[rearPoint] = value;
+        nItems++;
     }
 
     void Remove() {
+
         if (isEmpty()) {
             System.out.println("Queue is already empty");
             return;
         }
 
-        frontPoint++;
-        nItems--;
-
-        if (frontPoint == maxSize) {
-            frontPoint = 0;
+        // Removing the last element
+        if (nItems == 1) {
+            frontPoint = -1;
+            rearPoint = -1;
+            nItems = 0;
+            return;
         }
+
+        // Move front circularly
+        if (frontPoint == maxSize - 1) {
+            frontPoint = 0;
+        } else {
+            frontPoint++;
+        }
+
+        nItems--;
     }
 
     void Peek() {
