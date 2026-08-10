@@ -1,7 +1,9 @@
 class QueueArray {
 
     private int arr[];
-    private int topPoint;
+    private int frontPoint;
+    private int rearPoint;
+    private int size;
     private double loadFactor;
     private int initiateSizeOfArr;
 
@@ -9,137 +11,85 @@ class QueueArray {
         this.initiateSizeOfArr = pSize;
         this.arr = new int[initiateSizeOfArr];
         this.loadFactor = pLoadFactor;
-        this.topPoint = 0;
+        this.frontPoint = 0;
+        this.rearPoint = 0;
+        this.size = 0;
 
     }
 
-    void push(int value) {
+    void Insert(int value) {
+        if (this.size >= this.arr.length) {
+            int growth = (int) (this.initiateSizeOfArr * this.loadFactor);
 
-        if (this.topPoint >= this.arr.length) {
-
-            int[] tempArray = new int[(int) (this.arr.length + (this.initiateSizeOfArr *
-                    this.loadFactor))];
-
-            for (int i = 0; i < this.arr.length; i++) {
-                tempArray[i] = arr[i];
+            if (growth <= 0) {
+                growth = 1;
             }
-            this.arr = tempArray;
 
+            int newCapacity = this.arr.length + growth;
+            int[] tempArray = new int[newCapacity];
+
+            for (int i = 0; i < this.size; i++) {
+                tempArray[i] = this.arr[(this.frontPoint + i) % this.arr.length];
+            }
+
+            this.arr = tempArray;
+            this.frontPoint = 0;
+            this.rearPoint = this.size;
         }
-        this.arr[topPoint++] = value;
+
+        this.arr[this.rearPoint] = value;
+        this.rearPoint = (this.rearPoint + 1) % this.arr.length;
+        this.size++;
 
     }
 
-    void pop() {
+    void Remove() {
 
         if (isEmpty()) {
             System.out.println("Queue is already empty");
             return;
         }
 
-        // this.startPoint++;
+        this.arr[this.frontPoint] = 0;
+        this.frontPoint = (this.frontPoint + 1) % this.arr.length;
+        this.size--;
 
-        if (this.topPoint - 1 <= (arr.length - ((int) (this.initiateSizeOfArr *
-                this.loadFactor)))) {
+        if (this.size == 0) {
+            this.frontPoint = 0;
+            this.rearPoint = 0;
+        }
+    }
 
-            int[] tempArray = new int[arr.length - ((int) (this.initiateSizeOfArr *
-                    this.loadFactor))];
+    void Peek() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return;
+        }
 
-            for (int i = 0; i < tempArray.length; i++) {
-                tempArray[i] = arr[i];
-            }
+        System.out.println("Front data: " + this.arr[this.frontPoint]);
+    }
 
-            arr = tempArray;
+    void Display() {
+        if (isEmpty()) {
+            System.out.println("Queue is Empty");
+            return;
+        }
 
-        } else {
-            for (int i = 0; i < arr.length - 1; i++) {
-                arr[i] = arr[i + 1];
+        System.out.print("[");
 
+        for (int i = 0; i < this.size; i++) {
+            System.out.print(this.arr[(this.frontPoint + i) % this.arr.length]);
+
+            if (i < this.size - 1) {
+                System.out.print(",");
             }
         }
 
-        this.topPoint--;
-
+        System.out.println("]");
     }
 
     boolean isEmpty() {
-        return topPoint <= 0;
-    }
-
-    void displayArray() {
-
-        // here is displayed real Array
-        final int arrg[] = this.arr;
-        final int sizeOfArry = this.arr.length;
-
-        System.out.print("[");
-        for (int i = 0; i < sizeOfArry; i++) {
-            System.out.print(arrg[i] + ",");
-        }
-        System.out.println("\b]");
-    }
-
-    void displayArrayAdvance() {
-
-        System.out.print("[");
-
-        for (int i = 0; i < this.topPoint; i++) {
-            System.out.print(arr[i] + ",");
-        }
-
-        System.out.println(isEmpty() ? "Queue is Empty]" : "\b]");
-
-    }
-
-    void indexOf(int value) {
-
-        for (int i = 0; i < arr.length; i++) {
-
-            if (arr[i] == value) {
-                System.out.println("Index of " + value + ": " + (i));
-                return;
-            }
-            // System.out.println(arr.length-1-i);
-
-        }
-
-        System.out.println("This value does not exist");
-    }
-
-    void contains(int value) {
-        for (int i = 0; i < arr.length; i++) {
-
-            if (arr[i] == value) {
-                System.out.println("Contains " + value + ": " + true);
-                return;
-            }
-        }
-        System.out.println("This value does not exist");
-
-    }
-
-    void peek() {
-        System.out.println("Top data: " + arr[0]);
-    }
-
-    void sizeOf() {
-        System.out.println("Queue Size: " + this.topPoint);
-    }
-
-    void poll() {
-        this.peek();
-        this.pop();
-    }
-
-    void clear() {
-
-        this.arr = new int[initiateSizeOfArr];
-        this.topPoint = 0;
-
-    }
-
-    void copy() {
-        // purpose of this method was not sized up, therefor it is not devaloped
+        return this.size <= 0;
     }
 
 }
