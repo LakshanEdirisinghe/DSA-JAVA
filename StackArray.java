@@ -60,7 +60,13 @@ class StackArray {
 
     }
 
-    void indexOf(int value) {
+    void findIndex(int value) {
+
+        if (!contains(value)) {
+            System.out.println("This value does not exist");
+            return;
+
+        }
 
         for (int i = 0; i < arr.length; i++) {
 
@@ -74,16 +80,15 @@ class StackArray {
         System.out.println("This value does not exist");
     }
 
-    void contains(int value) {
+    boolean contains(int value) {
         for (int i = 0; i < arr.length; i++) {
 
             if (arr[i] == value) {
-                System.out.println("Contains " + value + ": " + true);
-                return;
+                return true;
             }
         }
-        System.out.println("This value does not exist");
 
+        return false;
     }
 
     void peek() {
@@ -109,10 +114,6 @@ class StackArray {
         arr = new int[initiateSizeOfArr];
         topPoint = 0;
 
-    }
-
-    void copy() {
-        // purpose of this method was not sized up, therefor it is not devaloped
     }
 
 }
